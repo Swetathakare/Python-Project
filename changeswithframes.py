@@ -34,33 +34,7 @@ button.place(relx=0.5, rely=0.6,anchor="center" )
 button.bind("<Button-1>",click)
 # Run the Tkinter main loop
 root.mainloop()
-# import tkinter as tk
-# from tkinter import PhotoImage
-#
-# # Create the main window
-# root = tk.Tk()
-# root.title("Space Shooter")
-#
-# # Load the image you want to set as the background
-# bg_image = PhotoImage(file="backimg.png")  # Replace "background.png" with your image file's path
-#
-# # Create a Frame widget to hold other widgets
-# frame = tk.Frame(root, width=950, height=650)
-# b= tk.Button(frame, text="Hello World", width=8, height=3, borderwidth=2, background="red")
-# b.pack()
-# frame.pack()
-# # Set the background image for the Frame
-# frame.config(bg="white")  # Set a default background color
-# bg_label = tk.Label(frame, image=bg_image)
-# bg_label.place(relwidth=1, relheight=1)
-#
-# # Add widgets to the frame
-#
-# # Pack the frame into the main window
-# frame.pack(fill="both", expand=True)
-# root.geometry("950x650")
-# # Run the Tkinter main loop
-# root.mainloop()
+
 pygame.init()
 
 sw = 950
