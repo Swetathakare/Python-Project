@@ -1,11 +1,45 @@
 import pygame
 import math
 import random
+import tkinter as tk
+from tkinter import PhotoImage
+
+
+run = False
+def click(event):
+    global run
+    text = event.widget.cget("text")
+    if(text=="Play Game"):
+        run= True
+    root.destroy()
+
+
+root = tk.Tk()
+root.title("Space Shooter !")
+bg_image = PhotoImage(file="backimg.png")  # Replace "background.png" with your image file's path
+# Create a Frame widget with the background image
+frame = tk.Frame(root, width=800, height=600)
+bg_label = tk.Label(frame, image=bg_image)
+bg_label.place(relwidth=1, relheight=1)
+
+# Pack the frame to fill the window
+frame.pack(fill="both", expand=True)
+
+# Create a Button and add it to the Frame
+button = tk.Button(frame,background="alice blue",foreground="midnight blue", text="Play Game", width=15, height=3)
+button.place(relx=0.5, rely=0.45, anchor="center")  # Center the button in the frame
+button.bind("<Button-1>",click)
+button = tk.Button(frame,background="alice blue",foreground="midnight blue", text="Quit", width=15, height=3)
+button.place(relx=0.5, rely=0.6,anchor="center" )
+button.bind("<Button-1>",click)
+# Run the Tkinter main loop
+root.mainloop()
 
 pygame.init()
 
 sw = 950
 sh = 650
+
 
 bg = pygame.image.load('backimg.png')
 alienImg = pygame.image.load('alienShip.png')
@@ -220,6 +254,8 @@ class AlienBullet(object):
 
 
 def redrawGameWindow():
+
+
     win.blit(bg, (0,0))
     font = pygame.font.SysFont('arial',30)
     livesText = font.render('Lives: ' + str(lives), 1, (255, 255, 255))
@@ -261,8 +297,8 @@ stars = []
 aliens = []
 alienBullets = []
 
-run = True
 while run:
+
     clock.tick(60)
     count += 1
     if not gameover:
@@ -363,8 +399,73 @@ while run:
                         playerBullets.pop(playerBullets.index(b))
                         break
         if lives <= 0:
-
             gameover = True
+            import tkinter as tk
+            from tkinter import PhotoImage
+
+            run = False
+
+
+            def click(event):
+                global run
+                global gameover
+                global score
+                global highScore
+                global lives
+                if gameover:
+                    if gameover:
+                        gameover = False
+                        lives = 10
+                        asteroids.clear()
+                        aliens.clear()
+                        alienBullets.clear()
+                        stars.clear()
+
+                text = event.widget.cget("text")
+                if (text == "Play Again"):
+                    run = True
+                    score = 0
+                root.destroy()
+
+
+            root = tk.Tk()
+            root.title("Space Shooter !")
+            bg_image = PhotoImage(file="backimg.png")
+            # Create a Frame widget with the background image
+            frame = tk.Frame(root, width=1000, height=700)
+            bg_label = tk.Label(frame, image=bg_image)
+            bg_label.place(relwidth=1, relheight=1)
+
+            # Pack the frame to fill the window
+            frame.pack(fill="both", expand=True)
+
+            # Create a Button and add it to the Frame
+            button = tk.Button(frame, background="SpringGreen3", foreground="Black", text="Play Again", width=15,
+                               height=3)
+            button.place(relx=0.40, rely=0.75, anchor="center")  # Center the button in the frame
+            button.bind("<Button-1>", click)
+            button = tk.Button(frame, background="Indian Red3", foreground="Black", text="Quit", width=15,
+                               height=3)
+            button.place(relx=0.60, rely=0.75, anchor="center")
+            current_score_label = tk.Label(frame, text="Current Score: "+str(score),height="3",width="20",background="alice blue",foreground="midnight blue")
+            current_score_label.place(in_=frame, anchor="c", relx=0.25, rely=0.25)
+            if score > highScore:
+                highScore = score
+
+                high_score_label = tk.Label(frame, font=("Bold",20),text="You have created the highest score! " + str(highScore), height="3", width="35",foreground="Black",background="LightCyan2")
+                high_score_label.place(in_=frame, anchor="c", relx=0.5, rely=0.5)
+            else:
+                high_score_label = tk.Label(frame, font=("Bold", 20),text="Better Luck Next Time! " + str(highScore), height="3",
+                                            width="35", foreground="Black", background="azure4")
+                high_score_label.place(in_=frame, anchor="c", relx=0.5, rely=0.5)
+            # Create the "High Score" label
+            high_score_label = tk.Label(frame, text="High Score :"+str(highScore),height="3",width="20",background="alice blue",foreground="midnight blue")
+            high_score_label.place(in_=frame, anchor="c", relx=0.75, rely=0.25)
+
+            button.bind("<Button-1>", click)
+            # Run the Tkinter main loop
+            root.mainloop()
+
         if rfStart != -1:
             if count - rfStart > 500:
                 rapidFire = False
@@ -394,16 +495,6 @@ while run:
                             shoot.play()
             if event.key == pygame.K_m:
                 isSoundOn = not isSoundOn
-            if event.key == pygame.K_TAB:
-                if gameover:
-                    gameover = False
-                    lives = 10
-                    asteroids.clear()
-                    aliens.clear()
-                    alienBullets.clear()
-                    stars.clear()
-                    if score > highScore:
-                        highScore = score
-                    score = 0
+
     redrawGameWindow()
 pygame.quit()
