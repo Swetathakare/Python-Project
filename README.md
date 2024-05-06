@@ -2,6 +2,17 @@
 
 We have used pygame module and tkinter of python to make GUI based game in python.
 
+IDE : PyCharm
+
+Contributors :-
+----------------
+
+- [Sweta Thakare](https://github.com/Swetathakare)
+- [Twisha Gohil](https://github.com/twishaa05)
+- [Tanisha Dusane](https://github.com/tanishadusane)
+- [Devika Yeola](https://github.com/devika-126/html-portfolio)
+
+
 ----------
 Rules:-
 --------
